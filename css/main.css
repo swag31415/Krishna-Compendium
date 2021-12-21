@@ -1,0 +1,8 @@
+select:required {
+  display: block;
+  left: 50%;
+  height: 0;
+  padding: 0;
+  width: 0;
+  position: absolute;
+}

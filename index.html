@@ -11,7 +11,36 @@
 <body>
   <insert-html link="https://swag31415.github.io/Portfolio/inserts/menu.html"></insert-html>
   <main class="container">
-    <!-- TODO Add body -->
+    <h1>Krishna-Compendium</h1>
+    <form id="search" class="row" target="/">
+      <div class="input-field col s6 l5">
+        <select name="book" required>
+          <option value="" disabled selected>Pick a book</option>
+          <option value="bg">Bhagavad-Gita</option>
+          <option value="sb">Srimad-Bhagavatam</option>
+          <option value="cc">Caitanya-Caritamrta</option>
+        </select>
+        <label>Pick a book</label>
+      </div>
+      <div class="input-field col s6 l5">
+        <select name="option" multiple required>
+          <option value="" disabled>Pick what you see</option>
+          <option value="name" selected>Book Name</option>
+          <option value="title" selected>Chapter Title</option>
+          <option value="desc" selected>Chapter Description</option>
+          <option value="numbers" selected>Verse Number</option>
+          <option value="og" selected>Original text</option>
+          <option value="verse" selected>Transliteration</option>
+          <option value="synonyms" selected>Word-by-word</option>
+          <option value="translation" selected>Translation</option>
+          <option value="purport" selected>Purport</option>
+        </select>
+        <label>Pick what you see</label>
+      </div>
+      <div class="input-field col s2 right">
+        <input type="submit" value="Show" class="btn green right">
+      </div>
+    </form>
   </main>
   <insert-html link="https://swag31415.github.io/Portfolio/inserts/foot.html"></insert-html>
   <!-- HTML Inserts -->
