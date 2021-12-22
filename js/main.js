@@ -22,50 +22,50 @@ function build_toc(root, is_sub) {
   `, {divs: divs, is_sub: is_sub})
 }
 
-const brk = s => s.trim().replaceAll('\n', '</br>')
+const brk = (s, acc) => (acc ? s : s.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')).trim().replaceAll('\n', '</br>')
 const gid = (...n) => ['v', ...n].join('-')
 const get_html = async (data, options) => ejs.render(`
 <% data.forEach((book, i) => { %>
-  <div id="<%- gid(i) %>" class="toc" data-name="<%- brk(book.name) %>">
+  <div id="<%- gid(i) %>" class="toc" data-name="<%- brk(book.name, options.has('accent')) %>">
     <% if (options.has('name')) { %>
-      <h2><%- brk(book.name) %></h2>
+      <h2><%- brk(book.name, options.has('accent')) %></h2>
     <% } %>
     <% book.chapters.forEach((chapter, j) => { %>
-      <div id="<%- gid(i,j) %>" class="toc" data-name="<%- brk(chapter.name) %>">
+      <div id="<%- gid(i,j) %>" class="toc" data-name="<%- brk(chapter.name, options.has('accent')) %>">
         <% if (options.has('title')) { %>
-          <h3 class="center-align"><%- brk(chapter.name) %></h3>
+          <h3 class="center-align"><%- brk(chapter.name, options.has('accent')) %></h3>
         <% } %>
         <% if (options.has('desc') && chapter.desc) { %>
-          <p><%- brk(chapter.desc) %></p>
+          <p><%- brk(chapter.desc, options.has('accent')) %></p>
         <% } %>
         <% chapter.verses.forEach((verse, k) => { %>
-          <div id="<%- gid(i,j,k) %>" class="toc" data-name="<%- brk(verse.verse) %>">
+          <div id="<%- gid(i,j,k) %>" class="toc" data-name="<%- brk(verse.verse, options.has('accent')) %>">
             <% if (options.has('numbers')) { %>
-              <h4><%- brk(verse.verse) %></h4>
+              <h4><%- brk(verse.verse, options.has('accent')) %></h4>
             <% } %>
             <% if (options.has('og') && (verse.devanagari || verse.bengali)) { %>
-              <p class="center-align bold"><%- brk(verse.devanagari || verse.bengali) %></p>
+              <p class="center-align bold"><%- brk(verse.devanagari || verse.bengali, options.has('accent')) %></p>
             <% } %>
             <% if (options.has('verse')) { %>
-              <p class="center-align"><%- brk(verse['verse-text']) %></p>
+              <p class="center-align"><%- brk(verse['verse-text'], options.has('accent')) %></p>
             <% } %>
             <% if (options.has('synonyms')) { %>
               <% if (options.has('subhead')) { %>
                 <h5 class="center-align">Synonyms</h5>
               <% } %>
-              <p><%- brk(verse.synonyms) %></p>
+              <p><%- brk(verse.synonyms, options.has('accent')) %></p>
             <% } %>
             <% if (options.has('translation')) { %>
               <% if (options.has('subhead')) { %>
                 <h5 class="center-align">Translation</h5>
               <% } %>
-              <p class="bold"><%- brk(verse.translation) %></p>
+              <p class="bold"><%- brk(verse.translation, options.has('accent')) %></p>
             <% } %>
             <% if (options.has('purport') && verse.purport) { %>
               <% if (options.has('subhead')) { %>
                 <h5 class="center-align">Purport</h5>
               <% } %>
-              <p><%- brk(verse.purport) %></p>
+              <p><%- brk(verse.purport, options.has('accent')) %></p>
             <% } %>
           </div>
         <% }) %>
