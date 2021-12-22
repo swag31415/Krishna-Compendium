@@ -1,7 +1,7 @@
 const cache = {}
 async function get_book(book) {
   if (cache[book]) return cache[book]
-  res = await fetch('/data/'+book+'.json')
+  res = await fetch('https://swag31415.github.io/Krishna-Compendium/data/'+book+'.json')
   if (!res.ok) throw new Error(res.statusText)
   data = await res.text()
   cache[book] = JSON.parse(data)
