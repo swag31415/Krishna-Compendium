@@ -32,15 +32,21 @@ const get_html = async (data, options) => ejs.render(`
         <p class="center-align"><%- brk(verse['verse-text']) %></p>
       <% } %>
       <% if (options.has('synonyms')) { %>
-        <h5 class="center-align">Synonyms</h5>
+        <% if (options.has('subhead')) { %>
+          <h5 class="center-align">Synonyms</h5>
+        <% } %>
         <p><%- brk(verse.synonyms) %></p>
       <% } %>
       <% if (options.has('translation')) { %>
-        <h5 class="center-align">Translation</h5>
+        <% if (options.has('subhead')) { %>
+          <h5 class="center-align">Translation</h5>
+        <% } %>
         <p class="bold"><%- brk(verse.translation) %></p>
       <% } %>
       <% if (options.has('purport') && verse.purport) { %>
-        <h5 class="center-align">Purport</h5>
+        <% if (options.has('subhead')) { %>
+          <h5 class="center-align">Purport</h5>
+        <% } %>
         <p><%- brk(verse.purport) %></p>
       <% } %>
     <% }) %>
