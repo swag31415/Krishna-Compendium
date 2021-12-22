@@ -6,3 +6,7 @@ select:required {
   width: 0;
   position: absolute;
 }
+
+.bold {
+  font-weight: bold;
+}
