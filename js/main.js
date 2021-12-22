@@ -83,7 +83,11 @@ if (book && options) {
   book_select.value = book
   let option_select_options = [...document.querySelector(`#search select[name=option]`).options]
   option_select_options.forEach(option => option.selected = options.has(option.value))
-  get_book(book).then(data => get_html(data, options)).then(html => {
+  // Wait for Materialize for the most consistent looks
+  m_ready.then(() => {
+    M.toast({html: 'Loading Book...'})
+    return get_book(book)
+  }).then(data => get_html(data, options)).then(html => {
     let content_div = document.getElementById('content')
     content_div.innerHTML = html
     document.getElementById('toc').innerHTML = build_toc(content_div)
@@ -91,7 +95,11 @@ if (book && options) {
     if (window.location.hash) {
       document.querySelector(window.location.hash).scrollIntoView()
     }
+    // Do it again because we added stuff
+    M.AutoInit()
+    M.toast({html: 'All Done!', classes: 'green'})
   }).catch(err => {
+    M.toast({html: 'Something went wrong', classes: 'red'})
     console.error(err)
   })
 }
